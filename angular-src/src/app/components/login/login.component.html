@@ -1,0 +1,15 @@
+<div class="container">
+    <h2>SIGN IN</h2>
+
+<form (submit)="onLoginSubmit()" class="form">
+    <input type="text" [(ngModel)]="username" name="username" placeholder="USERNAME" required=""/><br>
+    <input type="password" [(ngModel)]="password" name="password" placeholder="PASSWORD" required=""/><br><br>
+
+    <button type="submit" value="Login">Login</button>
+</form>
+
+<img src="./images/logo.jpg" class="logo"><br>
+
+<div class="links">
+    <span class="register"><a [routerLink]="['/register']" style="color:blue">Register</a></span>
+</div>    

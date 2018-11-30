@@ -1,0 +1,16 @@
+<a href="news">
+    <img src="./images/logo.JPG" class="logo2">
+</a>
+
+<a *ngIf="!user" (click)="onLogoutClick()"><button class="out">Log Out</button></a>
+<a *ngIf="user" (click)="onLogoutClick()"><button class="out">Log Out</button></a>
+
+<div class="navbar">
+    <span>myquarters.com</span>
+    
+    <a [routerLink]="['/']"><i class="fa fa-fw fa-home fa-lg"></i><div class="nav">Home</div></a>
+    <a [routerLink]="['/dashboard']"><i class="fa fa-fw fa-newspaper fa-lg"></i><div class="nav">Category</div></a> 
+    <a [routerLink]="['/profile']"><i class="fa fa-fw fa-user fa-lg"></i><div class="nav">Profile</div></a> 
+    <a [routerLink]="['/favorites']"><i class="fa fa-fw fa-heart"></i><div class="nav">Favorites</div></a>
+
+</div>
