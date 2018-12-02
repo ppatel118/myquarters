@@ -188,6 +188,11 @@ h3 {
     margin-top: 2%;
 }
 
+.fa-trash {
+    position: absolute;
+    bottom: 5%;
+}
+
 .about {
     padding: 1%;
     float: right;

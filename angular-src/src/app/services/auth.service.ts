@@ -7,37 +7,59 @@ import {tokenNotExpired} from 'angular2-jwt';
 export class AuthService {
   authToken: any;
   user: any;
+  favorites=[];
 
-  constructor(private http:Http) { }
+  constructor(private http: Http) { }
 
-  registerUser(user) {
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-    return this.http.post('http://localhost:3000/users/register', user, {headers: headers})
+registerUser(user) {
+  let headers = new Headers();
+  headers.append('Content-Type', 'application/json');
+  return this.http.post('users/register', user, {headers: headers})
     .map(res => res.json());
+}
+
+authenticateUser(user) {
+  let headers = new Headers();
+  headers.append('Content-Type', 'application/json');
+  return this.http.post('users/authenticate', user, {headers: headers})
+    .map(res => res.json());
+}
+
+getProfile() {
+  let headers = new Headers();
+  this.loadToken();
+  headers.append('Authorization', this.authToken);
+  headers.append('Content-Type', 'application/json');
+  return this.http.get('users/profile', {headers: headers})
+    .map(res => res.json());
+}
+
+storeUserData(token, user) {
+  localStorage.setItem('id_token', token);
+  localStorage.setItem('user', JSON.stringify(user));
+  this.authToken = token;
+  this.user = user;
+}
+
+  saveFav(img){
+    this.favorites.push(img);
+    localStorage.setItem('favorites', JSON.stringify(this.favorites));
+
   }
 
-  authenticateUser(user) {
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-    return this.http.post('http://localhost:3000/users/authenticate', user, {headers: headers})
-    .map(res => res.json());
+  getFav() {
+    // localStorage.getItem('favorites');
+    return JSON.parse(localStorage.getItem('favorites'));
+
   }
 
-  getProfile() {
-    let headers = new Headers();
-    this.loadToken();
-    headers.append('Authorization', this.authToken);
-    headers.append('Content-Type', 'application/json');
-    return this.http.get('http://localhost:3000/users/profile',  {headers: headers})
-    .map(res => res.json());
-  }
-
-  storeUserData(token, user) {
-    localStorage.setItem('id_token', token);
-    localStorage.setItem('user', JSON.stringify(user));
-    this.authToken = token;
-    this.user = user;
+  deleteFav(img) {
+    this.favorites = JSON.parse(localStorage.getItem('favorites'));
+    const notFav = this.favorites.indexOf(img);
+    if (notFav > -1) {
+      this.favorites.splice(notFav, 1);
+    }
+    localStorage.setItem('favorites', JSON.stringify(this.favorites));
   }
 
   loadToken() {
@@ -46,7 +68,7 @@ export class AuthService {
   }
 
   loggedIn() {
-    return tokenNotExpired();
+    return tokenNotExpired('id_token');
   }
 
   logout() {
@@ -54,5 +76,4 @@ export class AuthService {
     this.user = null;
     localStorage.clear();
   }
-
 }

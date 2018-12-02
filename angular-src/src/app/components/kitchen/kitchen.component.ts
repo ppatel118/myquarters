@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'app/services/auth.service';
 
 @Component({
   selector: 'app-kitchen',
@@ -6,10 +7,22 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./kitchen.component.css']
 })
 export class KitchenComponent implements OnInit {
+  user:Object;
 
-  constructor() { }
+  constructor(private authService:AuthService) { }
 
   ngOnInit() {
+    this.authService.getProfile().subscribe(profile => {
+      this.user = profile.user;
+    },
+     err => {
+       console.log(err);
+       return false;
+     });
+  }
+
+  addToFav(img) {
+    this.authService.saveFav(img);
   }
 
 }

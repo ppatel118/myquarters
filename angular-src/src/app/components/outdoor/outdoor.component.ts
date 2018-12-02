@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'app/services/auth.service';
 
 @Component({
   selector: 'app-outdoor',
@@ -6,10 +7,22 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./outdoor.component.css']
 })
 export class OutdoorComponent implements OnInit {
+  user:Object;
 
-  constructor() { }
+  constructor(private authService:AuthService) { }
 
   ngOnInit() {
+    this.authService.getProfile().subscribe(profile => {
+      this.user = profile.user;
+    },
+     err => {
+       console.log(err);
+       return false;
+     });
+  }
+
+  addToFav(img) {
+    this.authService.saveFav(img);
   }
 
 }

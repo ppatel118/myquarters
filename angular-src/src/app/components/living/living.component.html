@@ -5,9 +5,9 @@
     </p>
 
     <div class="row">
-        <div class="col"><img src="./images/living1.jpg"><i class="fas fa-heart"></i><div>Blue and White</div></div>
-        <div class="col"><img src="./images/living2.jpg"><i class="fas fa-heart"></i><div>Studio</div></div>
-        <div class="col"><img src="./images/living3.jpg"><i class="fas fa-heart"></i><div>Contemporary</div></div>
+        <div class="col"><img src="./images/living1.jpg"><i *ngIf="user" (click)="addToFav('living1.jpg')" class="fas fa-heart"></i><div>Blue and White</div></div>
+        <div class="col"><img src="./images/living2.jpg"><i *ngIf="user" (click)="addToFav('living2.jpg')" class="fas fa-heart"></i><div>Studio</div></div>
+        <div class="col"><img src="./images/living3.jpg"><i *ngIf="user" (click)="addToFav('living3.jpg')" class="fas fa-heart"></i><div>Contemporary</div></div>
     </div><br>
 
     <a [routerLink]="['/dashboard']" style="color:blue">Back</a>
