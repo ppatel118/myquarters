@@ -2,8 +2,8 @@
     <img src="./images/logo.JPG" class="logo2">
 </a>
 
-<a *ngIf="authService.user"><button (click)="onLogoutClick()" class="out">Log Out</button></a>
-<a  [routerLink]="['/login']"><button *ngIf="!authService.user" class="out">Log In</button></a>
+<a *ngIf="authService.user" (click)="onLogoutClick()"><button class="out">Log Out</button></a>
+<a [routerLink]="['/login']"><button *ngIf="!authService.user" class="out">Log In</button></a>
 
 <div class="navbar">
     <span>myquarters.com</span>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'app/services/auth.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-living',
@@ -7,8 +7,7 @@ import { AuthService } from 'app/services/auth.service';
   styleUrls: ['./living.component.css']
 })
 export class LivingComponent implements OnInit {
-  user:Object;
-
+  user: Object;
 
   constructor(private authService:AuthService) { }
 
@@ -20,10 +19,11 @@ export class LivingComponent implements OnInit {
        console.log(err);
        return false;
      });
-  }
+    }
 
-  addToFav(img) {
-    this.authService.saveFav(img);
+    addToFav(img) {
+      this.authService.saveFav(img);
+
   }
 
 }

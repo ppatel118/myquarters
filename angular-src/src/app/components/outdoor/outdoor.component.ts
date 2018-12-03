@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'app/services/auth.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-outdoor',
@@ -19,10 +19,11 @@ export class OutdoorComponent implements OnInit {
        console.log(err);
        return false;
      });
-  }
+    }
 
-  addToFav(img) {
-    this.authService.saveFav(img);
+    addToFav(img) {
+      this.authService.saveFav(img);
+
   }
 
 }

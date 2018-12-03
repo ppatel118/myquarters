@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'app/services/auth.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-kitchen',
@@ -7,7 +7,7 @@ import { AuthService } from 'app/services/auth.service';
   styleUrls: ['./kitchen.component.css']
 })
 export class KitchenComponent implements OnInit {
-  user:Object;
+  user: Object;
 
   constructor(private authService:AuthService) { }
 
@@ -19,10 +19,11 @@ export class KitchenComponent implements OnInit {
        console.log(err);
        return false;
      });
-  }
+    }
 
-  addToFav(img) {
-    this.authService.saveFav(img);
+    addToFav(img) {
+      this.authService.saveFav(img);
+
   }
 
 }

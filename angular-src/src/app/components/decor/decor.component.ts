@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'app/services/auth.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-decor',
@@ -8,8 +8,7 @@ import { AuthService } from 'app/services/auth.service';
 })
 export class DecorComponent implements OnInit {
   user:Object;
-
-  constructor(private authService:AuthService) { }
+  constructor( private authService:AuthService) { }
 
   ngOnInit() {
     this.authService.getProfile().subscribe(profile => {
@@ -19,10 +18,11 @@ export class DecorComponent implements OnInit {
        console.log(err);
        return false;
      });
-  }
+    }
 
-  addToFav(img) {
-    this.authService.saveFav(img);
+    addToFav(img) {
+      this.authService.saveFav(img);
+
   }
 
 }

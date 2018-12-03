@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'app/services/auth.service';
+import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -23,13 +23,13 @@ export class FavoritesComponent implements OnInit {
      });
 
     this.favorites = this.authService.getFav();
-    console.log(this.favorites);
-  }
+    console.log(this.favorites); 
+    }
 
-  removeFav(img) {
-    this.authService.deleteFav(img);
-    this.favorites = this.authService.getFav();
+    removeFav(img) {
+      this.authService.deleteFav(img);
+      this.favorites = this.authService.getFav();
+
   }
-  
 
 }
