@@ -18,7 +18,16 @@ const UserSchema = mongoose.Schema({
     password: {
         type: String,
         required: true
-    }
+    },
+    favorites: [{
+        type: String
+    }]
+    // profilePic: {
+    //     type: String,
+    // },
+    // posts: {
+    //     type: String
+    // }
 });
 
 const User = module.exports = mongoose.model('User', UserSchema);
@@ -39,6 +48,10 @@ module.exports.addUser = function(newUser, callback) {
             newUser.save(callback);
         });
     });
+}
+
+module.exports.updateUser = function(user, callback) {
+    user.save(callback);
 }
 
 module.exports.comparePassword = function(candidatePassword, hash, callback) {

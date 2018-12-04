@@ -11,7 +11,10 @@ router.post('/register', (req, res, next) => {
         name: req.body.name,
         email: req.body.email,
         username: req.body.username,
-        password: req.body.password
+        password: req.body.password,
+        favorites: []
+        // profilePic: req.body.profilePic,
+        // posts: req.body.posts
     });
 
     User.addUser(newUser, (err, user) => {
@@ -48,7 +51,10 @@ router.post('/authenticate', (req, res, next) => {
                         id: user._id,
                         name: user.name,
                         username: user.username,
-                        email: user.email
+                        email: user.email,
+                        favorites: user.favorites
+                        // profilePic: user.profilePic,
+                        // posts: user.posts
                     }
                 });
             } else {
@@ -61,6 +67,23 @@ router.post('/authenticate', (req, res, next) => {
 //Profile
 router.get('/profile', passport.authenticate('jwt', {session:false}), (req, res, next) => {
     res.json({user:req.user});
+});
+
+//Update Profile
+router.put('/favorites', (req, res, next) => {
+    const img = req.body.img;
+    User.getUserById(req.body._id, (err, user) => {
+        user.favorites = ["hello3"];
+        User.updateUser(user, (err, user) => {
+            if(err) {
+                res.json({success: false, msg:'Failed to update favorites.'});
+            } else {
+                res.json({success: true, msg:'Favorites updated.'});
+            }
+        });
+        console.log(user);
+        });
+
 });
 
 module.exports = router;
