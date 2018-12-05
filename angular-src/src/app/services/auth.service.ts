@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {Http, Headers} from '@angular/http';
 import 'rxjs/add/operator/map';
 import {tokenNotExpired} from 'angular2-jwt';
+import { FlashMessagesService } from 'angular2-flash-messages';
 
 @Injectable()
 export class AuthService {
@@ -9,7 +10,7 @@ export class AuthService {
   user: any;
   favorites=[];
 
-  constructor(private http:Http) { }
+  constructor(private http:Http, private flashMessage: FlashMessagesService) { }
 
   registerUser(user) {
     let headers = new Headers();
@@ -37,30 +38,76 @@ export class AuthService {
   storeUserData(token, user) {
     localStorage.setItem('id_token', token);
     localStorage.setItem('user', JSON.stringify(user));
-    localStorage.setItem('favorites', JSON.stringify(this.favorites));
+    localStorage.setItem('favorites', JSON.stringify(user['favorites']));
     this.authToken = token;
     this.user = user;
+    this.favorites = user['favorites'];
   }
 
   saveFav(img){
-    this.favorites.push(img);
-    localStorage.setItem('favorites', JSON.stringify(this.favorites));
-
+    const notFav = this.user.favorites.indexOf(img);
+    if (notFav == -1) {
+      this.user.favorites.push(img);
+      let headers = new Headers();
+      headers.append('Content-Type', 'application/json');
+      return this.http.put('http://localhost:3000/users/favorite', this.user, {headers: headers})
+      .map(res => res.json());
+    }
+    else {
+      this.flashMessage.show('This image is already a favorite.', {cssClass: 'alert-danger'});
+    }
   }
 
   getFav() {
-    // localStorage.getItem('favorites');
-    return JSON.parse(localStorage.getItem('favorites'));
-
+    return this.user.favorites;
   }
 
   deleteFav(img) {
-    this.favorites = JSON.parse(localStorage.getItem('favorites'));
-    const notFav = this.favorites.indexOf(img);
+    const notFav = this.user.favorites.indexOf(img);
     if (notFav > -1) {
-      this.favorites.splice(notFav, 1);
+      this.user.favorites.splice(notFav, 1);
+
+      let headers = new Headers();
+      headers.append('Content-Type', 'application/json');
+      return this.http.put('http://localhost:3000/users/favorite', this.user, {headers: headers})
+      .map(res => res.json());
     }
-    localStorage.setItem('favorites', JSON.stringify(this.favorites));
+  }
+
+  savePost(post){
+    const savePost = this.user.posts.indexOf(post);
+    
+    this.user.posts.push(post);
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.put('http://localhost:3000/users/post', this.user, {headers: headers})
+    .map(res => res.json());
+  }
+
+  getPost() {
+    return this.user.posts;
+  }
+
+  deletePost(post) {
+      const deletePost = this.user.posts.indexOf(post);
+      this.user.posts.splice(deletePost, 1);
+      let headers = new Headers();
+      headers.append('Content-Type', 'application/json');
+      return this.http.put('http://localhost:3000/users/post', this.user, {headers: headers})
+      .map(res => res.json());
+
+  }
+
+  saveProfilePic(profilePic){
+    this.user.profilePic = profilePic;
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http.put('http://localhost:3000/users/profilePic', this.user, {headers: headers})
+    .map(res => res.json());
+  }
+
+  getProfilePic() {
+    return this.user.profilePic;
   }
 
 

@@ -22,7 +22,7 @@ export class LightingComponent implements OnInit {
     }
 
     addToFav(img) {
-      this.authService.saveFav(img);
+      this.authService.saveFav(img).subscribe();
 
   }
 

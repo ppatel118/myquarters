@@ -21,13 +21,13 @@ const UserSchema = mongoose.Schema({
     },
     favorites: [{
         type: String
+    }],
+    profilePic: {
+        type: String,
+    },
+    posts: [{
+        type: String
     }]
-    // profilePic: {
-    //     type: String,
-    // },
-    // posts: {
-    //     type: String
-    // }
 });
 
 const User = module.exports = mongoose.model('User', UserSchema);

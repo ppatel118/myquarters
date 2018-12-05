@@ -3,57 +3,25 @@
 
 <br>
 <div style="text-align:center">
-    <input type="file" (change)="onFileSelected($event)" accept="image/*"/><br><br>
-    <h6>Update Profile Picture</h6>
-</div>     
-
-
- <div class="rating">
-    <div>
-        <h3 style="text-align:center">Skills</h3>
-    </div>
-    <div class="row">
-    <div class="col">
-        <h6 class>DIY Projects:</h6>
-        <span class="stars">
-            <span class="fa fa-star checked"></span>
-            <span class="fa fa-star checked"></span>
-            <span class="fa fa-star checked"></span>
-            <span class="fa fa-star checked"></span>
-            <span class="fa fa-star checked"></span>
-        </span> 
-    </div>
-        
-    <div class="col">
-        <h6>Interior Design:</h6>
-        <span class="stars">    
-            <span class="fa fa-star checked"></span>
-            <span class="fa fa-star checked"></span>
-            <span class="fa fa-star checked"></span>
-            <span class="fa fa-star checked"></span>
-            <span class="fa fa-star checked"></span>
-        </span>
-    </div>
-    <div class="col">
-        <h6>Home Improvement:</h6>
-        <span class="stars">    
-            <span class="fa fa-star checked"></span>
-            <span class="fa fa-star checked"></span>
-            <span class="fa fa-star checked"></span>
-            <span class="fa fa-star checked"></span>
-            <span class="fa fa-star checked"></span>
-        </span>
-    </div>
-    </div>
+    <h6>My Avatar</h6>
+    <input  [(ngModel)]="profilePic" name="profilePic" type="file" (change)="onFileSelected($event)" accept="image/*" #fileInput/><br><br>
+    <button (click)="saveProfilePic(profilePic)" type="button">Update Avatar</button>
+    
 </div>
 
 
 <div class="wall">
     <h3>User Activity</h3>
-    <input type="text" class="wallText" placeholder="What's on your mind?"><br><br>
-    <button type="button" >Post</button> <br> <br>
-    
-    
+    <input type="text" [(ngModel)]="post" name="post" class="wallText" placeholder="What's on your mind?"/><br><br>
+    <button (click)="addToWall(post)" type="button" >Post</button> <br> <br>
+
+    <div class="container">
+        <div>
+            <div style="text-align: center" *ngFor="let post of posts">
+                <span>{{post}}</span>  &nbsp;<i (click)="removePost(post)" class="fas fa-trash"></i><br>
+            </div>
+        </div>
+    </div>
 </div>
 </div>
 

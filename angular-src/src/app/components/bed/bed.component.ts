@@ -22,8 +22,7 @@ export class BedComponent implements OnInit {
     }
 
     addToFav(img) {
-      this.authService.saveFav(img);
-
+      this.authService.saveFav(img).subscribe();
   }
 
 }

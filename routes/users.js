@@ -12,9 +12,9 @@ router.post('/register', (req, res, next) => {
         email: req.body.email,
         username: req.body.username,
         password: req.body.password,
-        favorites: []
-        // profilePic: req.body.profilePic,
-        // posts: req.body.posts
+        favorites: [],
+        profilePic: "",
+        posts: []
     });
 
     User.addUser(newUser, (err, user) => {
@@ -52,9 +52,9 @@ router.post('/authenticate', (req, res, next) => {
                         name: user.name,
                         username: user.username,
                         email: user.email,
-                        favorites: user.favorites
-                        // profilePic: user.profilePic,
-                        // posts: user.posts
+                        favorites: user.favorites,
+                        profilePic: user.profilePic,
+                        posts: user.posts
                     }
                 });
             } else {
@@ -70,10 +70,11 @@ router.get('/profile', passport.authenticate('jwt', {session:false}), (req, res,
 });
 
 //Update Profile
-router.put('/favorites', (req, res, next) => {
-    const img = req.body.img;
-    User.getUserById(req.body._id, (err, user) => {
-        user.favorites = ["hello3"];
+router.put('/favorite', (req, res, next) => {
+    const updatedUser = req.body;
+    User.getUserById(req.body.id, (err, user) => {
+        user['favorites'] = updatedUser['favorites'];
+
         User.updateUser(user, (err, user) => {
             if(err) {
                 res.json({success: false, msg:'Failed to update favorites.'});
@@ -81,8 +82,38 @@ router.put('/favorites', (req, res, next) => {
                 res.json({success: true, msg:'Favorites updated.'});
             }
         });
-        console.log(user);
+    });
+
+});
+
+router.put('/post', (req, res, next) => {
+    const updatedUser = req.body;
+    User.getUserById(req.body.id, (err, user) => {
+        user['posts'] = updatedUser['posts'];
+
+        User.updateUser(user, (err, user) => {
+            if(err) {
+                res.json({success: false, msg:'Failed to update posts.'});
+            } else {
+                res.json({success: true, msg:'Posts updated.'});
+            }
         });
+    });
+
+});
+router.put('/profilePic', (req, res, next) => {
+    const updatedUser = req.body;
+    User.getUserById(req.body.id, (err, user) => {
+        user['profilePics'] = updatedUser['profilePics'];
+
+        User.updateUser(user, (err, user) => {
+            if(err) {
+                res.json({success: false, msg:'Failed to update profile pic.'});
+            } else {
+                res.json({success: true, msg:'Favorites profile.'});
+            }
+        });
+    });
 
 });
 

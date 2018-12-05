@@ -17,19 +17,17 @@ export class FavoritesComponent implements OnInit {
     this.authService.getProfile().subscribe(profile => {
       this.user = profile.user;
     },
-     err => {
+    err => {
        console.log(err);
        return false;
-     });
+    });
 
-    this.favorites = this.authService.getFav();
-    console.log(this.favorites); 
-    }
+     this.favorites = this.authService.getFav();
+  }
 
     removeFav(img) {
-      this.authService.deleteFav(img);
+      this.authService.deleteFav(img).subscribe();
       this.favorites = this.authService.getFav();
-
-  }
+    }
 
 }

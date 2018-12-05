@@ -125,6 +125,10 @@ h2 {
     color: slategray;
 }
 
+.row .fa-heart:hover {
+    color: #001b66;
+}
+
 h3 {
     text-align: center;
     color: #001b66; 
