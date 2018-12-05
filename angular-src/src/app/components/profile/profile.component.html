@@ -4,7 +4,7 @@
 <br>
 <div style="text-align:center">
     <h6>My Avatar</h6>
-    <input  [(ngModel)]="profilePic" name="profilePic" type="file" (change)="onFileSelected($event)" accept="image/*" #fileInput/><br><br>
+    <input  [(ngModel)]="profilePic" name="profilePic" type="file" (change)="onFileSelected(profilePic)" accept="image/*" #fileInput/><br><br>
     <button (click)="saveProfilePic(profilePic)" type="button">Update Avatar</button>
     
 </div>
