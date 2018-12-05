@@ -24,11 +24,15 @@ export class ProfileComponent implements OnInit {
      });
 
      this.posts = this.authService.getPost();
-
+     this.profilePic = this.authService.getProfilePic();
+    
+    onFileSelected(profilePic) {
+      this.profilePic = profilePic;
+      console.log(this.profilePic);
     }
 
-    saveProfilePic(post) {
-      this.authService.savePost(post).subscribe();
+    saveProfilePic(profilePic) {
+      this.authService.saveProfilePic(profilePic).subscribe();
     }
 
     addToWall(post) {
