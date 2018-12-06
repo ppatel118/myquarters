@@ -3,12 +3,13 @@
 
 <br>
 <div style="text-align:center">
-    <h6>My Avatar</h6>
-    <input  [(ngModel)]="profilePic" name="profilePic" type="file" (change)="onFileSelected($event)" accept="image/*" #fileInput/><br><br>
-    <button (click)="saveProfilePic(profilePic)" type="button">Update Avatar</button>
-    
+    <h6>Current Mood</h6>
+    <img src="../../../avatars/{{user?.profilePic}}">
 </div>
 
+<div class="upload-btn">
+        <image-upload class="customClass" url="http://localhost:3000/users/upload/{{user._id}}"></image-upload>  
+</div>
 
 <div class="wall">
     <h3>User Activity</h3>

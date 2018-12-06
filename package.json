@@ -10,10 +10,12 @@
   "author": "\"Pooja Patel\"",
   "license": "ISC",
   "dependencies": {
+    "aws-sdk": "^2.371.0",
     "bcryptjs": "*",
     "body-parser": "*",
     "cors": "*",
     "express": "*",
+    "formidable": "^1.2.1",
     "jsonwebtoken": "*",
     "mongoose": "*",
     "passport": "*",

@@ -99,7 +99,7 @@ export class AuthService {
   }
 
   saveProfilePic(profilePic){
-    this.user.profilePic = profilePic;
+    const saveProfilePic = this.user.profilePic;
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return this.http.put('http://localhost:3000/users/profilePic', this.user, {headers: headers})
