@@ -46,6 +46,7 @@ export class ProfileComponent implements OnInit {
     //   console.log(this.profilePic);
     // }
 
+
     saveProfilePic(profilePic) {
       this.authService.saveProfilePic(profilePic).subscribe();
     }
